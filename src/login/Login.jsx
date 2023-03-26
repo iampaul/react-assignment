@@ -23,7 +23,7 @@ function Login() {
 
     // form validation rules 
     const validationSchema = Yup.object().shape({
-        username: Yup.string().required('Username is required'),
+        email: Yup.string().email().required('Email is required'),
         password: Yup.string().required('Password is required')
     });
     const formOptions = { resolver: yupResolver(validationSchema) };
@@ -32,24 +32,24 @@ function Login() {
     const { register, handleSubmit, formState } = useForm(formOptions);
     const { errors, isSubmitting } = formState;
 
-    function onSubmit({ username, password }) {
-        return dispatch(authActions.login({ username, password }));
+    function onSubmit({ email, password }) {
+        return dispatch(authActions.login({ email, password }));
     }
 
     return (
         <div className="col-md-6 offset-md-3 mt-5">
             <div className="alert alert-info">
-                Username: test<br />
-                Password: test
+                Email: paultest01@yopmail.com<br />
+                Password: Paul@1234
             </div>
             <div className="card">
                 <h4 className="card-header">Login</h4>
                 <div className="card-body">
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <div className="form-group">
-                            <label>Username</label>
-                            <input name="username" type="text" {...register('username')} className={`form-control ${errors.username ? 'is-invalid' : ''}`} />
-                            <div className="invalid-feedback">{errors.username?.message}</div>
+                            <label>Email</label>
+                            <input name="email" type="text" {...register('email')} className={`form-control ${errors.email ? 'is-invalid' : ''}`} />
+                            <div className="invalid-feedback">{errors.email?.message}</div>
                         </div>
                         <div className="form-group">
                             <label>Password</label>

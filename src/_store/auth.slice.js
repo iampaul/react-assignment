@@ -39,7 +39,7 @@ function createReducers() {
 }
 
 function createExtraActions() {
-    const baseUrl = `${process.env.REACT_APP_API_URL}/users`;
+    const baseUrl = `${process.env.REACT_APP_API_URL}`;
 
     return {
         login: login()
@@ -48,7 +48,7 @@ function createExtraActions() {
     function login() {
         return createAsyncThunk(
             `${name}/login`,
-            async ({ username, password }) => await fetchWrapper.post(`${baseUrl}/authenticate`, { username, password })
+            async ({ email, password }) => await fetchWrapper.post(`${baseUrl}/auth/login`, { email, password })
         );
     }
 }
