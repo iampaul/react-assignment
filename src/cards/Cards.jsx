@@ -38,28 +38,15 @@ function Cards() {
         <div>            
             <h3>All Cards:</h3>
             {cards.length &&
-                <div className="card">
-                     <div className="card-body">                                             
-                     <div className="tariffCards">
-                        {cards.map(card =>
-                            <div className={`credit-card selectable ${card.category === 'AE' ? 'american-express' : card.category === 'MC' ? 'mastercard' : 'visa'}`}>
-                                <div className="credit-card-last4">
-                                    {card.cardNumber.slice(-4)}
-                                </div>
-                                <div className="credit-card-holder">
-                                    {card.cardHolder}
-                                </div>
-                                <div className="credit-card-expiry">
-                                {card.cardExpiration}
-                                </div>
-                            </div>
-                        )}
-                    </div>
-                    <ul className="pagination mt-2">
+            <div className="row">
+                <div className="col-md-12">
+                    <nav aria-label="Page navigation">
+                    <ul className="pagination pagination-sm mt-2">
                         {pageNumbers.map(pageNumber => (
-                        <li key={pageNumber}>
+                        <li key={pageNumber} className={currentPage === pageNumber ? 'page-item active' : 'page-item'}>
                              <button
                                 key={pageNumber}
+                                className="page-link"
                                 onClick={() => handlePageChange(pageNumber)}
                                 disabled={pageNumber === currentPage}
                              >
@@ -68,8 +55,48 @@ function Cards() {
                         </li>
                         ))}
                     </ul>
-                    </div>
-                </div>                
+                    </nav>
+                </div>   
+                <div className="col-md-12">
+                    <div className="card">
+                        <div className="card-body">                                             
+                        <div className="tariffCards">
+                            {cards.map(card =>
+                                <div key={card.id} className={`credit-card selectable ${card.category === 'AE' ? 'american-express' : card.category === 'MC' ? 'mastercard' : 'visa'}`}>
+                                    <div className="credit-card-last4">
+                                        {card.cardNumber.slice(-4)}
+                                    </div>
+                                    <div className="credit-card-holder">
+                                        {card.cardHolder}
+                                    </div>
+                                    <div className="credit-card-expiry">
+                                    {card.cardExpiration}
+                                    </div>
+                                </div>
+                            )}
+                        </div>                    
+                        </div>
+                    </div>                
+                </div>
+                <div className="col-md-12">
+                    <nav aria-label="Page navigation">
+                    <ul className="pagination pagination-sm mt-2">
+                        {pageNumbers.map(pageNumber => (
+                        <li key={pageNumber} className={currentPage === pageNumber ? 'page-item active' : 'page-item'}>
+                             <button
+                                key={pageNumber}
+                                className="page-link"
+                                onClick={() => handlePageChange(pageNumber)}
+                                disabled={pageNumber === currentPage}
+                             >
+                                {pageNumber}
+                            </button>
+                        </li>
+                        ))}
+                    </ul>
+                    </nav>
+                </div>                    
+            </div>            
             }
             {cards.loading && <div className="spinner-border spinner-border-sm"></div>}
             {cards.error && <div className="text-danger">No cards found</div>}            
